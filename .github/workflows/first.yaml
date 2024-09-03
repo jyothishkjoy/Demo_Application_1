@@ -2,12 +2,23 @@ name: First githubactions project
 on: [push]
 
 jobs:
-  first_project:
+  first_job:
     runs-on: ubuntu-latest
     steps:
       - name: echo string
-        run: echo "Hello, GitHub Actions!"
+        run: echo "Hello, GitHub Actions! from first job"
       - name: echo multiline comment
         run: |
          node -v
          npm -v   
+  second_job_depends_first_not_parallel:
+    runs-on: ubuntu-latest
+    needs: first_job
+    steps:
+      - name: echo string
+        run: echo "Hello, GitHub Actions! from  second_job_depends_first_not_parallel"
+  third_job_parallelrun:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo string
+        run: echo "Hello, GitHub Actions! from third parallel job"
