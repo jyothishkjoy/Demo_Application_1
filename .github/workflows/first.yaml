@@ -1,0 +1,13 @@
+name: First githubactions project
+on: [push]
+
+jobs:
+  first_project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo string
+        run: echo "Hello, GitHub Actions!"
+      - name: echo multiline comment
+        run: |
+         node -v
+         npm -v   
