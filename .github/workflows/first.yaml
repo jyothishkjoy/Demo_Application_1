@@ -5,9 +5,16 @@ jobs:
   first_job:
     runs-on: ubuntu-latest
     steps:
-      - name: list dir before
-        run: ls -l
       - name: checkout code
         uses: actions/checkout@v2
-      - name: list dir after checkout
-        run: ls -l
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu' # See 'Supported distributions' for available options
+          java-version: '21'
+      - run: mvn --batch-mode --update-snapshots verify
+      - run: mkdir staging && cp target/*.jar staging
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Package
+          path: staging
+      
